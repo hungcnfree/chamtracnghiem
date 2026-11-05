@@ -1,0 +1,119 @@
+﻿moc,khoa,noi_dung
+1,diem_bai,Điểm bài này
+2,khong_sai,Không sai câu nào
+3,sai,Sai
+4,can_kiem_tra,Cần kiểm tra
+5,cau,câu
+6,y,ý
+7,bo_trong,bỏ trống
+8,to_hai_o,tô hai ô
+9,phay,phẩy
+10,va_nua,và một số câu khác
+11,y_a,a
+12,y_b,bê
+13,y_c,xê
+14,y_d,đê
+15,y_e,e
+16,y_f,ép
+17,y_g,giê
+18,y_h,hát
+19,so_0,không
+20,so_1,một
+21,so_2,hai
+22,so_3,ba
+23,so_4,bốn
+24,so_5,năm
+25,so_6,sáu
+26,so_7,bảy
+27,so_8,tám
+28,so_9,chín
+29,so_10,mười
+30,so_11,mười một
+31,so_12,mười hai
+32,so_13,mười ba
+33,so_14,mười bốn
+34,so_15,mười lăm
+35,so_16,mười sáu
+36,so_17,mười bảy
+37,so_18,mười tám
+38,so_19,mười chín
+39,so_20,hai mươi
+40,so_21,hai mươi mốt
+41,so_22,hai mươi hai
+42,so_23,hai mươi ba
+43,so_24,hai mươi tư
+44,so_25,hai mươi lăm
+45,so_26,hai mươi sáu
+46,so_27,hai mươi bảy
+47,so_28,hai mươi tám
+48,so_29,hai mươi chín
+49,so_30,ba mươi
+50,so_31,ba mươi mốt
+51,so_32,ba mươi hai
+52,so_33,ba mươi ba
+53,so_34,ba mươi tư
+54,so_35,ba mươi lăm
+55,so_36,ba mươi sáu
+56,so_37,ba mươi bảy
+57,so_38,ba mươi tám
+58,so_39,ba mươi chín
+59,so_40,bốn mươi
+60,so_41,bốn mươi mốt
+61,so_42,bốn mươi hai
+62,so_43,bốn mươi ba
+63,so_44,bốn mươi tư
+64,so_45,bốn mươi lăm
+65,so_46,bốn mươi sáu
+66,so_47,bốn mươi bảy
+67,so_48,bốn mươi tám
+68,so_49,bốn mươi chín
+69,so_50,năm mươi
+70,so_51,năm mươi mốt
+71,so_52,năm mươi hai
+72,so_53,năm mươi ba
+73,so_54,năm mươi tư
+74,so_55,năm mươi lăm
+75,so_56,năm mươi sáu
+76,so_57,năm mươi bảy
+77,so_58,năm mươi tám
+78,so_59,năm mươi chín
+79,so_60,sáu mươi
+80,so_61,sáu mươi mốt
+81,so_62,sáu mươi hai
+82,so_63,sáu mươi ba
+83,so_64,sáu mươi tư
+84,so_65,sáu mươi lăm
+85,so_66,sáu mươi sáu
+86,so_67,sáu mươi bảy
+87,so_68,sáu mươi tám
+88,so_69,sáu mươi chín
+89,so_70,bảy mươi
+90,so_71,bảy mươi mốt
+91,so_72,bảy mươi hai
+92,so_73,bảy mươi ba
+93,so_74,bảy mươi tư
+94,so_75,bảy mươi lăm
+95,so_76,bảy mươi sáu
+96,so_77,bảy mươi bảy
+97,so_78,bảy mươi tám
+98,so_79,bảy mươi chín
+99,so_80,tám mươi
+100,so_81,tám mươi mốt
+101,so_82,tám mươi hai
+102,so_83,tám mươi ba
+103,so_84,tám mươi tư
+104,so_85,tám mươi lăm
+105,so_86,tám mươi sáu
+106,so_87,tám mươi bảy
+107,so_88,tám mươi tám
+108,so_89,tám mươi chín
+109,so_90,chín mươi
+110,so_91,chín mươi mốt
+111,so_92,chín mươi hai
+112,so_93,chín mươi ba
+113,so_94,chín mươi tư
+114,so_95,chín mươi lăm
+115,so_96,chín mươi sáu
+116,so_97,chín mươi bảy
+117,so_98,chín mươi tám
+118,so_99,chín mươi chín

@@ -1,0 +1,23 @@
+SAN PHAM CHAM TRAC NGHIEM BANG CAMERA - HUONG DAN DAT AUDIO VA DAY LEN GITHUB
+
+PHAN 1. TAO AUDIO (thay cho giong may, tuy chon)
+1. Mo CIT Voice Studio, vao tab "Tao hang loat".
+2. Thu truoc: dan 3 dong dau cua loi-thoai/thoai-1.txt, chon giong (khuyen nghi Adam bua), xuat WAV, nghe thu.
+3. Dan nguyen file loi-thoai/thoai-1.txt (60 moc P1-P60), xuat WAV, tai file .zip va giai nen.
+4. Lam tuong tu voi loi-thoai/thoai-2.txt (moc P61-P118).
+   Luu y: KHONG bam nut "Lam sach" khi dan file. Moi moc [P..] phai nam tren mot dong rieng.
+5. Chep TAT CA file .wav (ten dang 001-P1.wav, 002-P2.wav...) vao thu muc "audio" trong thu muc nay.
+   Khong can doi ten: file dang-len-github se tu doi ten theo audio\map.csv.
+
+PHAN 2. DAY LEN GITHUB
+1. Tren github.com tao mot kho (repository) moi, de Public, KHONG tick them README. Chep dia chi .git cua kho.
+2. Bam dup file dang-len-github.bat. Lan dau no hoi ten, email va dia chi kho; cac lan sau chay thang.
+   Neu may hien cua so dang nhap GitHub, dang nhap la xong.
+3. Tren GitHub: Settings > Pages > Source "Deploy from a branch", Branch "main", thu muc "/ (root)" > Save.
+4. Doi 1-2 phut, trang chay tai https://TEN-BAN.github.io/TEN-KHO/ (co HTTPS nen camera dien thoai moi hoat dong).
+
+PHAN 3. SU DUNG
+- Tab "Cham": bam "Giong noi: tat" de bat. Thieu file audio nao thi app tu dung giong may cho cau do.
+- Moi lan sua audio hoac sua app: chep file moi vao, bam dup dang-len-github.bat.
+
+GHI CHU THANH THAT: bo cong cu nay chua duoc thu tren may cua thay (Windows, Git, GitHub Pages) va chua nghe thu giong that ghep tung doan.
