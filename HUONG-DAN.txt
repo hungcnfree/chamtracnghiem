@@ -24,6 +24,7 @@ PHAN 3. SU DUNG
 GHI CHU THANH THAT: bo cong cu nay chua duoc thu tren may cua thay (Windows, Git, GitHub Pages) va chua nghe thu giong that ghep tung doan.
 
 PHAN 4. TAI LIEU IN (thu muc tai-lieu)
+- mau-de-kiem-tra.docx: FILE WORD MAU DE THI (A4, 3 trang): khung dau de + bang diem, muc I Trac nghiem (7 diem), muc II Tu luan (3 diem), trang Bai lam co san phieu va phan tu luan ke dong. Co the tai truc tiep trong app (tab Phieu in) khi chay tu GitHub Pages. Xoa khung do va cac dong chu xam "Mau" truoc khi in.
 - phieu-dan-vao-de.docx: phieu rong 17 cm de dan vao de Word (le 2 cm). Co khung do nhac nho - NHO XOA khung do truoc khi in.
 - phieu-in-san-A4.pdf: trang 1 la huong dan (khong in), trang 2 co 2 phieu tren mot to A4 (thu ve 90%), in tu trang 2.
 - Hai file ung voi cau hinh mac dinh (12 cau A/B/C/D + 4 cau Dung/Sai, moi cau 4 y). Cau hinh khac: vao app, tab "Phieu in", bam "Tai anh phieu" roi thay anh trong file Word.
