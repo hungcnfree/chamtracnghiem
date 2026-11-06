@@ -1,0 +1,11 @@
+[P119] Phiếu này được
+[P120] điểm
+[P121] Tuyệt vời
+[P122] Xuất sắc
+[P123] Tiếc quá, chỉ sai
+[P124] Gần tuyệt đối, chỉ sai
+[P125] xem trên màn hình
+[P126] Đặt phiếu phẳng trên bàn, đưa bốn ô vuông đen vào khung.
+[P127] Chưa thấy đủ bốn góc. Lùi ra một chút, giữ phiếu thẳng.
+[P128] Giữ yên một chút.
+[P129] Xong rồi. Ghi điểm lên phiếu, rồi đưa phiếu tiếp theo.

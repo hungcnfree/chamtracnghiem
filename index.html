@@ -31,6 +31,7 @@ input[type=text]{font:inherit;letter-spacing:.18em;width:100%;padding:9px;border
 .bad{color:var(--er);font-size:14px;margin:4px 0 0}
 #sheetBox svg{width:100%;height:auto;border:1px solid var(--bd);display:block}
 #sheetBox svg.dup{display:none}
+@media print{#sheetBox svg.full{height:297mm!important}}
 @media print{@page{size:A4;margin:0}body *{visibility:hidden}#sheetBox,#sheetBox *{visibility:visible}#sheetBox{position:absolute;left:0;top:0;width:210mm}#sheetBox svg{border:0;width:210mm;height:148.5mm}#sheetBox svg.dup{display:block}}
 
 body{background-color:var(--bg);background-image:linear-gradient(90deg,transparent 30px,var(--hl) 30px 32px,transparent 32px),repeating-linear-gradient(transparent 0 27px,color-mix(in srgb,var(--ac) 20%,transparent) 27px 28px);background-attachment:local}
@@ -57,10 +58,21 @@ input.k{width:100%;min-width:0;text-align:center;font-weight:800;font-size:20px;
 .stp{display:inline-flex;align-items:center;gap:6px}.stp button{width:34px;height:34px;padding:0;font-size:20px;font-weight:800;border-radius:50%;border:2px solid var(--ac);color:var(--ac);background:var(--card)}
 .pt{display:block;margin:2px 0 8px;font-size:14px}input.pt{width:64px;display:inline-block;text-align:center;padding:4px;border:2px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);font:inherit;letter-spacing:0}
 .tfq{flex-wrap:wrap;align-items:flex-start}.cells{display:flex;gap:6px;flex:1;min-width:0;flex-wrap:wrap}.cells .cell{flex:0 0 52px}
+.tabs button{padding:9px 2px;font-size:14px}.ft{margin:22px 0 6px;text-align:center;font-size:13px;color:var(--mu)}
+#vwin{position:relative;width:100%;max-width:380px;height:250px;margin:8px auto;background:#2b2f36;border:6px solid #111;border-radius:22px;overflow:hidden;touch-action:none}
+#vph{position:absolute;left:0;top:0;width:270px;cursor:grab;touch-action:none;box-shadow:0 4px 12px #0009}#vph svg{display:block;width:100%;height:auto;pointer-events:none}
+#vq{position:absolute;display:none;border:3px solid #ffd400;pointer-events:none;border-radius:4px}
+#vsc{text-align:center;margin:8px 0;min-height:60px}.vbig{font-family:"Patrick Hand","Segoe Print",cursive;font-size:56px;line-height:1;color:var(--er)}
+ol.gl{padding-left:20px;margin:6px 0}ol.gl li{margin:6px 0}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"></head><body><div class="wrap">
 <h1>✏️ Chấm trắc nghiệm</h1>
-<div class="tabs"><button data-t="key" class="on">1. Đáp án</button><button data-t="scan">2. Chấm</button><button data-t="sheet">3. Phiếu in</button></div>
+<div class="tabs"><button data-t="guide">❓ Hướng dẫn</button><button data-t="key" class="on">1 Đáp án</button><button data-t="sheet">2 Phiếu in</button><button data-t="scan">3 Chấm</button></div>
 
+<section id="guide" hidden><div class="card"><h2 style="margin-top:0">Thử quét ảo (như thật)</h2>
+<p class="mu">Kéo tờ phiếu vào khung camera, hoặc bấm “Đưa phiếu vào”. Khi cả 4 ô vuông đen vào khung và phiếu đứng yên, máy “ting” rồi báo điểm. Sau mỗi lần chốt, máy nghỉ 10 giây mới nhận phiếu tiếp.</p>
+<div id="vwin"><div id="vph"></div><div id="vq"></div></div><div id="vst" class="mu" style="text-align:center"></div><div id="vsc"></div>
+<div class="row"><button id="vb1">Đưa phiếu 1 vào</button><button id="vb2">Đưa phiếu 2 vào</button><button id="vVoice">🔇 Giọng nói: tắt</button><button id="vmc">Bật lại MC hướng dẫn</button></div>
+<h2>4 bước dùng thật</h2><ol class="gl"><li><b>1 Đáp án:</b> gõ đáp án từng câu (bấm − / + để thêm bớt câu và ý).</li><li><b>2 Phiếu in:</b> in phiếu, dán vào cuối đề. Không kéo giãn, không gõ đè lên phiếu.</li><li><b>3 Chấm:</b> mở camera, đặt phiếu phẳng trên bàn tối màu, đưa 4 ô vuông đen vào khung.</li><li>Ghi điểm lên phiếu, đưa phiếu tiếp theo. Bật “Giọng nói” (nên dùng tai nghe) nếu muốn nghe báo điểm.</li></ol></div></section>
 <section id="key" class="card"><div id="kui"></div><p id="hint" class="mu"></p></section>
 
 <section id="scan" hidden>
@@ -71,10 +83,11 @@ input.k{width:100%;min-width:0;text-align:center;font-weight:800;font-size:20px;
 </section>
 
 <section id="sheet" hidden>
-<p class="mu">Phiếu chỉ chiếm nửa trang A4 dọc. Khi in, mỗi tờ A4 ra 2 phiếu, thầy cắt đôi theo đường nét đứt. Chọn khổ A4, tỉ lệ 100%, không chọn “vừa trang”. Nếu nút in không hoạt động, hãy mở trang này bằng trình duyệt rồi in.</p>
-<button id="bPrint" class="on" style="margin-bottom:10px">In phiếu</button>
+<p class="mu" id="pnote"></p>
+<button id="bPrint" class="on" style="margin-bottom:10px">In phiếu</button> <button id="bPng" style="margin-bottom:10px">⬇ Tải ảnh phiếu (PNG 300 dpi)</button>
 <div id="sheetBox"></div>
 </section>
+<footer class="ft">✦ Vibecoding bởi thầy Nông Văn Hùng · THCS Đăk Ơ</footer>
 </div>
 <script>
 const $=s=>document.querySelector(s);
@@ -85,8 +98,8 @@ try{const v=JSON.parse(localStorage.getItem('omr9'));if(v&&v.a1&&v.q2)K=v;else{c
 const save=()=>{try{localStorage.setItem('omr9',JSON.stringify(K))}catch(e){}};
 const nY=()=>K.q2.reduce((a,q)=>a+q.length,0),maxPts=()=>K.a1.length*K.pt1+nY()*K.pt2;
 /* ---- Hình học phiếu: nửa trang A4 dọc (mm, 210x148), tính theo cấu hình ---- */
-const MK=[[9,9],[201,9],[201,139],[9,139]];
-function layout(){
+let MK=[[9,9],[201,9],[201,139],[9,139]],HH=148;
+function layoutH(H){
  const n1=K.a1.length,q2=K.q2,mx=Math.max(0,...q2.map(q=>q.length)),L=Math.min(5,mx)||1,cp=Math.min(37,150/L),dS=Math.min(13,cp*.4);let o;
  for(const sc of [1,.92,.85,.78]){
   const a=9*sc,b=10*sc;o={t:[],p1:[],p2:[],y2:[],sep:0,over:0};let last=0;
@@ -95,11 +108,12 @@ function layout(){
   if(q2.length){let yy;if(n1){o.sep=last+7;o.t.push([14,last+13,`PHẦN II (câu ${n1+1}–${n1+q2.length}): mỗi ý tô kín một ô, Đ (đúng) hoặc S (sai)`]);yy=last+22}
    else{o.t.push([14,30,`PHẦN II (câu 1–${q2.length}): mỗi ý tô kín một ô, Đ (đúng) hoặc S (sai)`]);yy=39}
    q2.forEach(q=>{o.y2.push(yy);const row=q.map((_,j)=>{const cl=44+cp*(j%L),ly=yy+((j/L)|0)*b;return[[cl+13,ly],[cl+13+dS,ly]]});o.p2.push(row);const ln=Math.ceil(q.length/L);last=yy+(ln-1)*b;yy+=ln*b})}
-  o.over=Math.max(0,last+2.6-132);if(!o.over)break}
+  o.H=H;o.over=Math.max(0,last+2.6-(H-16));if(!o.over)break}
  return o}
+function layout(){let o=layoutH(148);if(o.over>0)o=layoutH(297);HH=o.H;MK=[[9,9],[201,9],[201,HH-9],[9,HH-9]];return o}
 let LAY=layout();
 function sheetSVG(){const o=LAY;
- let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 148" font-family="Arial,sans-serif" fill="#000"><rect width="210" height="148" fill="#fff"/>';
+ let s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 '+HH+'" font-family="Arial,sans-serif" fill="#000"><rect width="210" height="'+HH+'" fill="#fff"/>';
  MK.forEach(([x,y])=>s+=`<rect x="${x-4}" y="${y-4}" width="8" height="8"/>`);
  const t=(x,y,z,txt,a='start',b='normal')=>s+=`<text x="${x}" y="${y}" font-size="${z}" text-anchor="${a}" font-weight="${b}">${txt}</text>`;
  const c=(x,y)=>s+=`<circle cx="${x}" cy="${y}" r="2.6" fill="none" stroke="#000" stroke-width=".3"/>`;
@@ -108,21 +122,22 @@ function sheetSVG(){const o=LAY;
  o.p1.forEach((r,i)=>{t(r[0][0]-19,r[0][1]+1.1,3,'Câu '+(i+1),'start','bold');r.forEach((b,k)=>{t(b[0]-3.8,b[1]+1.1,3,'ABCD'[k],'end');c(...b)})});
  if(o.sep)s+=`<line x1="14" y1="${o.sep}" x2="196" y2="${o.sep}" stroke="#000" stroke-width=".3"/>`;
  o.p2.forEach((q,qi)=>{t(14,o.y2[qi]+1.1,3,'Câu '+(K.a1.length+qi+1),'start','bold');q.forEach(([d,x],j)=>{t(d[0]-9.5,d[1]+1.1,3,'abcdefgh'[j]+')','end','bold');t(d[0]-3.8,d[1]+1.1,3,'Đ','end');c(...d);t(x[0]-3.8,x[1]+1.1,3,'S','end');c(...x)})});
- s+='<line x1="0" y1="147.7" x2="210" y2="147.7" stroke="#888" stroke-width=".25" stroke-dasharray="2 1.5"/>';
+ if(HH===148)s+='<line x1="0" y1="147.7" x2="210" y2="147.7" stroke="#888" stroke-width=".25" stroke-dasharray="2 1.5"/>';
  return s+'</svg>'}
-function renderSheet(){$('#sheetBox').innerHTML=sheetSVG()+sheetSVG().replace('<svg ','<svg class="dup" ')}
+function renderSheet(){$('#sheetBox').innerHTML=HH===148?sheetSVG()+sheetSVG().replace('<svg ','<svg class="dup" '):sheetSVG().replace('<svg ','<svg class="full" ')}
 /* ---- Giao diện cố định (vở học trò: kem, san hô, xanh dương) ---- */
 (function(){const c={bg:'#F5EBDD',card:'#FFFBF5',tx:'#413333',mu:'#6E615E',bd:'#D5CABE',ac:'#315B8C',accbg:'#FBDFD6',hl:'#F2765E',acx:'#FFFFFF',ok:'#14703A',er:'#B3261E',wa:'#9A5B00'},r=document.documentElement.style;for(const k in c)r.setProperty('--'+k,c[k]);r.colorScheme='light'})();
 /* ---- Giao diện nhập đáp án có nút cộng, trừ ---- */
 function hint(){const m=K.a1.filter(x=>!x).length+K.q2.flat().filter(x=>!x).length;
- $('#hint').innerHTML=`Điểm tối đa: <b>${f2(maxPts())}</b> · `+(m?`còn thiếu ${m} đáp án.`:'đã đủ đáp án.')+(LAY.over>0?` <span style="color:var(--er)">Phiếu tràn nửa trang khoảng ${Math.ceil(LAY.over)} mm: hãy bớt câu hoặc ý.</span>`:'')}
+ $('#hint').innerHTML=`Điểm tối đa: <b>${f2(maxPts())}</b> · `+(m?`còn thiếu ${m} đáp án.`:'đã đủ đáp án.')+(LAY.over>0?` <span style="color:var(--er)">Quá nhiều câu cho cả một tờ A4 (tràn ${Math.ceil(LAY.over)} mm): hãy bớt câu hoặc ý.</span>`:HH>148?` <span style="color:var(--wa)">⚠️ Nhiều câu quá nửa trang A4: phiếu đã tự xếp gọn trên 1 tờ A4 đầy đủ.</span>`:'')}
 const stp=(id,n,u)=>`<span class="stp"><button data-s="${id}" data-d="-1" aria-label="Bớt">−</button><b>${n} ${u}</b><button data-s="${id}" data-d="1" aria-label="Thêm">+</button></span>`;
 const cell=(lb,cl,v,at)=>`<label class="cell"><span class="no ${cl}">${lb}</span><input class="k" ${at} maxlength="2" value="${v}" autocapitalize="characters" autocomplete="off"></label>`;
 function buildKey(){const n1=K.a1.length;
  $('#kui').innerHTML=`<div class="hd"><h2>Phần I · Trắc nghiệm</h2>${stp('c1',n1,'câu')}</div><label class="pt">Điểm mỗi câu <input class="pt" id="pt1" value="${f2(K.pt1)}" inputmode="decimal"></label><div id="k1">`
  +K.a1.map((v,i)=>cell('Câu '+(i+1),'w',v,`data-a="${i}"`)).join('')+`</div><div class="hd"><h2>Phần II · Đúng/Sai</h2>${stp('c2',K.q2.length,'câu')}</div><label class="pt">Điểm mỗi ý <input class="pt" id="pt2" value="${f2(K.pt2)}" inputmode="decimal"></label>`
  +K.q2.map((q,qi)=>`<div class="tfq"><b class="tfn">Câu ${n1+qi+1}</b><div class="cells">${q.map((v,j)=>cell('abcdefgh'[j],'s',v,`data-q="${qi}" data-a="${j}"`)).join('')}</div>${stp('y'+qi,q.length,'ý')}</div>`).join('');hint()}
-function relayout(){LAY=layout();renderSheet();hint()}
+function pnote(){$('#pnote').textContent=LAY.over>0?'Quá nhiều câu cho cả một tờ A4: hãy bớt câu hoặc ý.':HH>148?'⚠️ Số câu vượt nửa trang A4 nên phiếu đã tự xếp gọn trên 1 tờ A4 đầy đủ (mỗi tờ 1 phiếu). Chọn khổ A4, tỉ lệ 100%, không chọn “vừa trang”.':'Phiếu chiếm nửa trang A4: mỗi tờ A4 ra 2 phiếu, cắt đôi theo nét đứt. Chọn khổ A4, tỉ lệ 100%, không chọn “vừa trang”.'}
+function relayout(){LAY=layout();renderSheet();hint();pnote()}
 $('#key').oninput=e=>{const el=e.target;
  if(el.id==='pt1'||el.id==='pt2'){const v=parseFloat(el.value.replace(',','.'));if(v>0){K[el.id]=v;save();hint()}return}
  if(!el.classList.contains('k'))return;const tf=el.dataset.q!==undefined;
@@ -135,14 +150,39 @@ $('#key').onclick=e=>{const b=e.target.closest('button[data-s]');if(!b)return;co
  else{const q=K.q2[+id.slice(1)];d>0?q.length<8&&q.push(''):q.length>1&&q.pop()}
  save();relayout();buildKey()};
 relayout();buildKey();
-let lock=false,same=0,lastSig='';
+let lock=false,same=0,lastSig='',coolUntil=0;
+/* ---- Thử quét ảo ---- */
+const vph=$('#vph'),vwin=$('#vwin'),vst=t=>$('#vst').textContent=t,dot=([x,y])=>`<circle cx="${x+Math.sin(x*9)*.15}" cy="${y+Math.cos(y*7)*.15}" r="2.2" fill="#23262b"/>`;
+let vO=null,vLock=false,vCool=0,vSteady=0,vOut=0,vT=null,vPrev=[0,0],vDrag=null;
+function setSample(n){vph.style.width=Math.min(270,215*210/HH)+'px';const n1=K.a1.length,w1=n===1&&n1>2?2:-1,w2=n===1&&LAY.p2.length&&LAY.p2[0].length>1?1:-1;let ex='',lost=0;
+ LAY.p1.forEach((r,i)=>{let k='ABCD'.indexOf(K.a1[i]||'A');if(k<0)k=0;if(i===w1){k=(k+1)%4;lost+=K.pt1}ex+=dot(r[k])});
+ LAY.p2.forEach((q,qi)=>q.forEach((c,j)=>{let k='ĐS'.indexOf(K.q2[qi][j]||'Đ');if(k<0)k=0;if(qi===0&&j===w2){k=1-k;lost+=K.pt2}ex+=dot(c[k])}));
+ vO={score:maxPts()-lost,B:[...(w1>=0?[{n:3}]:[]),...(w2>=0?[{n:n1+1,y:1}]:[])]};vph.innerHTML=sheetSVG().replace('</svg>',ex+'</svg>')}
+function vPlace(x,y,an){vph.style.transition=an?'transform .9s ease':'none';vph.style.transform=`translate(${x}px,${y}px)`}
+function vSend(n){setSample(n);vPlace(-vph.offsetWidth-30,18,false);vph.getBoundingClientRect();setTimeout(()=>vPlace((vwin.clientWidth-vph.offsetWidth)/2,(vwin.clientHeight-vph.offsetHeight)/2,true),60)}
+vph.onpointerdown=e=>{const m=new DOMMatrix(getComputedStyle(vph).transform);vph.style.transition='none';vDrag={x:e.clientX-m.m41,y:e.clientY-m.m42};vph.setPointerCapture(e.pointerId)};
+vph.onpointermove=e=>{if(vDrag)vPlace(e.clientX-vDrag.x,e.clientY-vDrag.y,false)};vph.onpointerup=()=>vDrag=null;
+function vTick(){const a=vwin.getBoundingClientRect(),b=vph.getBoundingClientRect(),m=2,in_=b.left>=a.left+m&&b.right<=a.right-m&&b.top>=a.top+m&&b.bottom<=a.bottom-m,q=$('#vq');
+ q.style.cssText=in_?`display:block;left:${b.left-a.left}px;top:${b.top-a.top}px;width:${b.width}px;height:${b.height}px;border-color:${vLock?'#4cc38a':'#ffd400'}`:'display:none';
+ if(!in_){if(++vOut>6){if(vLock)vst('Đặt phiếu mới vào khung.');vLock=false;vSteady=0}else if(!vLock)vst('Chưa thấy đủ 4 góc.');return}
+ vOut=0;if(vLock)return;
+ if(Date.now()<vCool){vst('Nghỉ nhịp: đợi '+Math.ceil((vCool-Date.now())/1000)+' giây rồi quét phiếu tiếp.');vSteady=0;return}
+ vst('Đang đọc… giữ yên phiếu.');const mv=Math.abs(b.left-vPrev[0])+Math.abs(b.top-vPrev[1]);vPrev=[b.left,b.top];
+ if(mv>1){vSteady=0;return}
+ if(++vSteady>=8){vLock=true;vCool=Date.now()+10000;stopVoice();beep();vst('Đã chấm xong. Ghi điểm lên phiếu, rồi đưa phiếu tiếp theo.');
+  $('#vsc').innerHTML=`<div class="vbig">${f2(vO.score)}</div><div class="sub">trên ${f2(maxPts())} điểm</div>`;announce(vO.score,vO.B,[])}}
+function guideOn(){setSample(1);vPlace(-vph.offsetWidth-30,18,false);vLock=false;vCool=0;$('#vsc').innerHTML='';clearInterval(vT);vT=setInterval(vTick,100)}
+function guideOff(){clearInterval(vT);stopVoice()}
+$('#vb1').onclick=()=>{$('#vsc').innerHTML='';vSend(1)};$('#vb2').onclick=()=>{$('#vsc').innerHTML='';vSend(2)};
+$('#vVoice').onclick=()=>$('#bVoice').click();$('#vmc').onclick=()=>{MCN=0;try{localStorage.setItem('omr9m','0')}catch(e){}vst('Đã bật lại MC hướng dẫn (cần bật Giọng nói).')};
 /* ---- Tabs ---- */
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
- ['key','scan','sheet'].forEach(id=>$('#'+id).hidden=id!==b.dataset.t);
- if(b.dataset.t!=='scan')stopCam();
+ ['guide','key','scan','sheet'].forEach(id=>$('#'+id).hidden=id!==b.dataset.t);
+ if(b.dataset.t!=='scan')stopCam();b.dataset.t==='guide'?guideOn():guideOff();
 });
 $('#bPrint').onclick=()=>window.print();
+$('#bPng').onclick=()=>{const W=2480,Hh=Math.round(W*HH/210),im=new Image();im.onload=()=>{try{const c=document.createElement('canvas');c.width=W;c.height=Hh;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,Hh);x.drawImage(im,0,0,W,Hh);c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='phieu-tra-loi.png';a.click()})}catch(e){alert('Không tải được ảnh. Hãy mở trang bằng trình duyệt thường (Chrome, Safari).')}};im.onerror=()=>alert('Không tạo được ảnh.');im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(sheetSVG())};
 /* ---- Xử lý ảnh ---- */
 function otsu(g){const h=new Array(256).fill(0);for(let i=0;i<g.length;i++)h[g[i]]++;let sum=0;for(let i=0;i<256;i++)sum+=i*h[i];let sb=0,wb=0,mx=0,th=100;for(let i=0;i<256;i++){wb+=h[i];if(!wb)continue;const wf=g.length-wb;if(!wf)break;sb+=i*h[i];const mb=sb/wb,mf=(sum-sb)/wf,v=wb*wf*(mb-mf)*(mb-mf);if(v>mx){mx=v;th=i}}return th}
 function blobs(g,w,h,th){const seen=new Uint8Array(w*h),st=new Int32Array(w*h),out=[],minA=w*h*0.0002;
@@ -182,21 +222,28 @@ const VT={diem_bai:'Điểm bài này',khong_sai:'Không sai câu nào',sai:'Sai
 const vt=k=>k.startsWith('so_')?vn(+k.slice(3)):VT[k];
 let VOICE=false;try{VOICE=localStorage.getItem('omr9v')==='1'}catch(e){}
 let AC=null;const ensureAC=()=>{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC};
-const CL={};
+Object.assign(VT,{phieu_duoc:'Phiếu này được',diem:'điểm',tuyet_voi:'Tuyệt vời',xuat_sac:'Xuất sắc',tiec_qua:'Tiếc quá, chỉ sai',gan_het:'Gần tuyệt đối, chỉ sai',xem_man_hinh:'xem trên màn hình',mc_dat:'Đặt phiếu phẳng trên bàn, đưa bốn ô vuông đen vào khung.',mc_goc:'Chưa thấy đủ bốn góc. Lùi ra một chút, giữ phiếu thẳng.',mc_doc:'Giữ yên một chút.',mc_xong:'Xong rồi. Ghi điểm lên phiếu, rồi đưa phiếu tiếp theo.'});
+const CL={};let VTOK=0,SRC=[],MCN=0,VN=0,mcf={};try{MCN=+localStorage.getItem('omr9m')||0}catch(e){}
+const pick=a=>a[VN++%a.length],mc=k=>{if(!VOICE||MCN>=3||mcf[k])return;mcf[k]=1;say([k])};
 function clip(k){return CL[k]||(CL[k]=(async()=>{for(const e of ['wav','mp3']){try{const r=await fetch('audio/'+k+'.'+e);if(!r.ok)continue;const ab=await r.arrayBuffer();
- const b=await new Promise((ok,no)=>ensureAC().decodeAudioData(ab,ok,no)),d=b.getChannelData(0);let n=d.length;while(n>0&&Math.abs(d[n-1])<.015)n--;
- return{b,dur:Math.min(b.duration,n/b.sampleRate+.04)}}catch(x){}}return null})())}
-async function say(seq){const cs=await Promise.all(seq.map(clip));
- if(cs.every(Boolean)){const a=ensureAC();let t=a.currentTime+.05;cs.forEach(c=>{const s=a.createBufferSource();s.buffer=c.b;s.connect(a.destination);s.start(t,0,c.dur);t+=c.dur+.03})}
- else try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(seq.map(vt).join(' '));u.lang='vi-VN';speechSynthesis.speak(u)}catch(e){}}
+ const b=await new Promise((ok,no)=>ensureAC().decodeAudioData(ab,ok,no)),d=b.getChannelData(0),sr=b.sampleRate;let i=0,n=d.length;while(i<n&&Math.abs(d[i])<.015)i++;while(n>i&&Math.abs(d[n-1])<.015)n--;
+ const s0=Math.max(0,i/sr-.015);return{b,s:s0,dur:Math.max(.05,Math.min(b.duration,n/sr+.04)-s0)}}catch(x){}}return null})())}
+function stopVoice(){VTOK++;SRC.forEach(s=>{try{s.stop()}catch(e){}});SRC=[];try{speechSynthesis.cancel()}catch(e){}}
+async function say(seq){stopVoice();const tok=VTOK,cs=await Promise.all(seq.filter(x=>typeof x==='string').map(clip));if(tok!==VTOK)return;
+ if(cs.every(Boolean)){const a=ensureAC();let t=a.currentTime+.05,i=0;seq.forEach(x=>{if(typeof x==='number'){t+=x;return}const c=cs[i++],s=a.createBufferSource();s.buffer=c.b;s.connect(a.destination);s.start(t,c.s,c.dur);SRC.push(s);t+=c.dur+.03})}
+ else try{const u=new SpeechSynthesisUtterance(seq.filter(x=>typeof x==='string').map(vt).join(', '));u.lang='vi-VN';speechSynthesis.speak(u)}catch(e){}}
 function scoreSeq(x){const p=(Math.round(x*100)/100).toString().split('.'),q=['so_'+p[0]];if(p[1]){q.push('phay');for(const d of p[1])q.push('so_'+d)}return q}
 const item=i=>['cau','so_'+i.n].concat(i.y!==undefined?['y','y_'+'abcdefgh'[i.y]]:[]);
-function announce(t,B,W){if(!VOICE)return;const q=['diem_bai',...scoreSeq(t)];
- if(!B.length&&!W.length)q.push('khong_sai');
- if(B.length){q.push('sai');B.slice(0,8).forEach(i=>q.push(...item(i)));if(B.length>8)q.push('va_nua')}
- if(W.length){q.push('can_kiem_tra');W.slice(0,4).forEach(i=>q.push(...item(i),i.k))}
+function announce(t,B,W){if(!VOICE)return;const mx=maxPts(),sc=scoreSeq(t),q=[];
+ if(!B.length&&!W.length&&t>=mx-1e-9)q.push(pick(['tuyet_voi','xuat_sac']),.25,...sc,'diem',.35,'khong_sai');
+ else{q.push('phieu_duoc',.12,...sc,'diem',.4);
+  if(B.length===1&&!W.length)q.push(pick(['tiec_qua','gan_het']),.1,...item(B[0]));
+  else if(B.length>4)q.push('sai',.1,'so_'+B.length,'cau',.25,'xem_man_hinh');
+  else if(B.length){q.push('sai',.15);B.forEach((i,x)=>{if(x)q.push(.28);q.push(...item(i))})}
+  if(W.length){q.push(.5,'can_kiem_tra',.15);W.slice(0,4).forEach((i,x)=>{if(x)q.push(.28);q.push(...item(i),.1,i.k)})}}
+ if(MCN<3)q.push(.7,'mc_xong');
  setTimeout(()=>say(q),600)}
-function vbtn(){$('#bVoice').textContent=VOICE?'🔊 Giọng nói: bật':'🔇 Giọng nói: tắt'}
+function vbtn(){const t=VOICE?'🔊 Giọng nói: bật':'🔇 Giọng nói: tắt';$('#bVoice').textContent=t;$('#vVoice').textContent=t}
 $('#bVoice').onclick=()=>{VOICE=!VOICE;try{localStorage.setItem('omr9v',VOICE?'1':'0')}catch(e){}vbtn();if(VOICE){ensureAC();say(['diem_bai'])}};
 vbtn();
 function grade(R){const k=K,n1=k.a1.length;let c1=0,c2=0;const warn=[],bad=[],B=[],W=[];
@@ -214,18 +261,18 @@ function stopCam(){run=false;if(stream){stream.getTracks().forEach(t=>t.stop());
 $('#bCam').onclick=async()=>{
  if(run){stopCam();return}
  try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}},audio:false});
-  vid.srcObject=stream;await vid.play();run=true;lock=false;same=0;miss=0;lastSig='';$('#bCam').textContent='Tắt camera';setSt('Đưa phiếu vào khung, căn đủ 4 ô vuông đen ở bốn góc.');tick()}
+  vid.srcObject=stream;await vid.play();run=true;lock=false;same=0;miss=0;lastSig='';$('#bCam').textContent='Tắt camera';setSt('Đưa phiếu vào khung, căn đủ 4 ô vuông đen ở bốn góc.');mc('mc_dat');tick()}
  catch(e){setSt('Không mở được camera (chưa cấp quyền hoặc trang đang bị chặn). Hãy mở trang bằng trình duyệt, hoặc dùng “Chọn ảnh phiếu”.',1)}
 };
 function tick(){if(!run)return;
  const W=480,H=Math.round((vid.videoHeight||360)*W/(vid.videoWidth||480));cv.width=ov.width=W;cv.height=ov.height=H;
  const x=cv.getContext('2d',{willReadFrequently:true});x.drawImage(vid,0,0,W,H);
  const a=analyze(x.getImageData(0,0,W,H).data,W,H),o=ov.getContext('2d');o.clearRect(0,0,W,H);
- if(!a){if(++miss>6){if(lock)setSt('Đặt phiếu mới vào khung để chấm tiếp.');lock=false;same=0;lastSig=''}else if(!lock)setSt('Chưa thấy đủ 4 góc. Căn lại phiếu, tránh bóng đổ.')}
+ if(!a){if(miss===45&&!lock)mc('mc_goc');if(++miss>6){if(lock)setSt('Đặt phiếu mới vào khung để chấm tiếp.');lock=false;same=0;lastSig=''}else if(!lock)setSt('Chưa thấy đủ 4 góc. Căn lại phiếu, tránh bóng đổ.')}
  else{miss=0;o.strokeStyle=lock?'#4cc38a':'#ffd400';o.lineWidth=3;o.beginPath();a.quad.forEach((p,i)=>i?o.lineTo(p.x,p.y):o.moveTo(p.x,p.y));o.closePath();o.stroke();
-  if(!lock){const sig=JSON.stringify(a.R);if(sig===lastSig)same++;else{same=1;lastSig=sig}
-   setSt('Đang đọc… giữ yên phiếu.');
-   if(same>=3){lock=true;grade(a.R);beep();setSt('Đã chấm xong. Ghi điểm lên phiếu, rồi đặt phiếu mới vào.')}}}
+  if(!lock&&Date.now()<coolUntil)setSt('Nghỉ nhịp: đợi '+Math.ceil((coolUntil-Date.now())/1000)+' giây rồi quét phiếu tiếp.');else if(!lock){const sig=JSON.stringify(a.R);if(sig===lastSig)same++;else{same=1;lastSig=sig}
+   setSt('Đang đọc… giữ yên phiếu.');if(same===2)mc('mc_doc');
+   if(same>=3){lock=true;coolUntil=Date.now()+10000;stopVoice();grade(a.R);mcf={};MCN++;try{localStorage.setItem('omr9m',MCN)}catch(e){}beep();setSt('Đã chấm xong. Ghi điểm lên phiếu, rồi đặt phiếu mới vào.')}}}
  setTimeout(tick,110);
 }
 /* ---- Chọn ảnh ---- */
