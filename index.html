@@ -64,6 +64,15 @@ input.k{width:100%;min-width:0;text-align:center;font-weight:800;font-size:20px;
 #vq{position:absolute;display:none;border:3px solid #ffd400;pointer-events:none;border-radius:4px}
 #vsc{text-align:center;margin:8px 0;min-height:60px}.vbig{font-family:"Patrick Hand","Segoe Print",cursive;font-size:56px;line-height:1;color:var(--er)}
 ol.gl{padding-left:20px;margin:6px 0}ol.gl li{margin:6px 0}
+.acts{display:flex;flex-direction:column;gap:12px;margin:10px 0 14px}
+.act{display:flex;align-items:center;justify-content:center;gap:12px;font-size:17px;font-weight:800;padding:13px 14px;border:3px solid #413333;border-radius:18px;box-shadow:0 5px 0 #413333;cursor:pointer}
+.act:active{transform:translateY(3px);box-shadow:0 2px 0 #413333}.act:disabled{opacity:.6}.a1{background:#FFD166;color:#413333}.a2{background:#0B7A75;color:#fff}.a3{background:#2B579A;color:#fff}
+#pnote{color:var(--wa);font-weight:700}
+.tfq{display:block!important;margin-bottom:12px}.hd2{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.cells{display:grid!important;grid-template-columns:repeat(4,1fr);gap:8px;flex:none}.cells .cell{flex:none!important}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;z-index:50;padding:16px}#modal[hidden]{display:none}
+.mbox{position:relative;background:var(--card);border:3px solid var(--hl);border-radius:20px;padding:24px 18px 18px;max-width:360px;width:100%;box-shadow:6px 6px 0 var(--ac);text-align:center}
+.mbox h3{font-family:"Patrick Hand","Segoe Print",cursive;font-size:28px;margin:0 0 8px;color:var(--er)}.mx{position:absolute;right:8px;top:8px;width:38px;height:38px;border-radius:50%;padding:0;font-size:18px}
+#mok{margin-top:12px;font-size:26px;font-weight:800;padding:10px 52px;background:var(--ac);color:var(--acx);border:3px solid var(--tx);border-radius:14px;box-shadow:0 4px 0 var(--tx)}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"></head><body><div class="wrap">
 <h1>✏️ Chấm trắc nghiệm</h1>
 <div class="tabs"><button data-t="guide">❓ Hướng dẫn</button><button data-t="key" class="on">1 Đáp án</button><button data-t="sheet">2 Phiếu in</button><button data-t="scan">3 Chấm</button></div>
@@ -73,7 +82,7 @@ ol.gl{padding-left:20px;margin:6px 0}ol.gl li{margin:6px 0}
 <div id="vwin"><div id="vph"></div><div id="vq"></div></div><div id="vst" class="mu" style="text-align:center"></div><div id="vsc"></div>
 <div class="row"><button id="vb1">Đưa phiếu 1 vào</button><button id="vb2">Đưa phiếu 2 vào</button><button id="vVoice">🔇 Giọng nói: tắt</button><button id="vmc">Bật lại MC hướng dẫn</button></div>
 <h2>4 bước dùng thật</h2><ol class="gl"><li><b>1 Đáp án:</b> gõ đáp án từng câu (bấm − / + để thêm bớt câu và ý).</li><li><b>2 Phiếu in:</b> in phiếu, dán vào cuối đề. Không kéo giãn, không gõ đè lên phiếu.</li><li><b>3 Chấm:</b> mở camera, đặt phiếu phẳng trên bàn tối màu, đưa 4 ô vuông đen vào khung.</li><li>Ghi điểm lên phiếu, đưa phiếu tiếp theo. Bật “Giọng nói” (nên dùng tai nghe) nếu muốn nghe báo điểm.</li></ol></div></section>
-<section id="key" class="card"><div id="kui"></div><p id="hint" class="mu"></p></section>
+<section id="key" class="card"><p class="mu" style="margin:0 0 4px">Hãy nhập đáp án đúng và tùy chỉnh cấu trúc đề (thêm/bớt câu, thêm/bớt ý) cho phù hợp với đề của bạn.</p><div id="kui"></div><p id="hint" class="mu"></p></section>
 
 <section id="scan" hidden>
 <div class="stage" id="stage"><video id="vid" playsinline muted></video><canvas id="ov"></canvas></div>
@@ -84,10 +93,12 @@ ol.gl{padding-left:20px;margin:6px 0}ol.gl li{margin:6px 0}
 
 <section id="sheet" hidden>
 <p class="mu" id="pnote"></p>
-<button id="bPrint" class="on" style="margin-bottom:10px">In phiếu</button> <button id="bPng" style="margin-bottom:10px">⬇ Tải ảnh phiếu (PNG 300 dpi)</button> <a class="btn" href="tai-lieu/mau-de-kiem-tra.docx" download style="display:inline-block;margin-bottom:10px;text-decoration:none">⬇ Tải file Word mẫu đề thi</a>
-<p class="mu">File Word mẫu (khổ A4, 3 trang) gồm: khung đầu đề và bảng điểm, mục I Trắc nghiệm, mục II Tự luận, trang “Bài làm” có sẵn phiếu (cấu hình mặc định) và phần tự luận kẻ dòng. Nút tải hoạt động khi mở trang từ GitHub Pages hoặc từ gói zip; trong khung xem trước thì bị chặn.</p>
+<div class="acts"><button id="bPrint" class="act a1"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7"/></svg><span>In phiếu / Lưu PDF</span></button>
+<button id="bPng" class="act a2"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M3 18l5-5 4 4 3-3 6 5"/></svg><span>Tải ảnh phiếu (PNG)</span></button>
+<button id="bDoc" class="act a3"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="4" fill="#fff"/><text x="12" y="17.6" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="16" fill="#2B579A">W</text></svg><span>Tải đề mẫu Word (.docx)</span></button></div>
 <div id="sheetBox"></div>
 </section>
+<div id="modal" hidden><div class="mbox" role="alertdialog" aria-modal="true" aria-labelledby="mh"><button class="mx" aria-label="Đóng">✕</button><h3 id="mh"></h3><p id="mtxt"></p><button id="mok">OK</button></div></div>
 <footer class="ft">✦ Vibecoding bởi thầy Nông Văn Hùng · THCS Đăk Ơ</footer>
 </div>
 <script>
@@ -104,10 +115,10 @@ function layoutH(H){
  const n1=K.a1.length,q2=K.q2,mx=Math.max(0,...q2.map(q=>q.length)),L=Math.min(5,mx)||1,cp=Math.min(37,150/L),dS=Math.min(13,cp*.4);let o;
  for(const sc of [1,.92,.85,.78]){
   const a=9*sc,b=10*sc;o={t:[],p1:[],p2:[],y2:[],sep:0,over:0};let last=0;
-  if(n1){const R=Math.ceil(n1/3);o.t.push([14,30,`PHẦN I (câu 1–${n1}): mỗi câu tô kín một ô tròn`]);
+  if(n1){const R=Math.ceil(n1/3);o.t.push([14,30,`PHẦN I (câu 1–${n1}): tô kín một ô tròn bằng bút chì đen`]);
    for(let i=0;i<n1;i++){const c=(i/R)|0,r=i%R;o.p1.push([0,1,2,3].map(k=>[33+c*62+k*11,41+r*a]))}last=41+(R-1)*a}
-  if(q2.length){let yy;if(n1){o.sep=last+7;o.t.push([14,last+13,`PHẦN II (câu ${n1+1}–${n1+q2.length}): mỗi ý tô kín một ô, Đ (đúng) hoặc S (sai)`]);yy=last+22}
-   else{o.t.push([14,30,`PHẦN II (câu 1–${q2.length}): mỗi ý tô kín một ô, Đ (đúng) hoặc S (sai)`]);yy=39}
+  if(q2.length){let yy;if(n1){o.sep=last+7;o.t.push([14,last+13,`PHẦN II (câu ${n1+1}–${n1+q2.length}): mỗi ý tô kín ô Đ (đúng) hoặc S (sai) bằng bút chì đen`]);yy=last+22}
+   else{o.t.push([14,30,`PHẦN II (câu 1–${q2.length}): mỗi ý tô kín ô Đ (đúng) hoặc S (sai) bằng bút chì đen`]);yy=39}
    q2.forEach(q=>{o.y2.push(yy);const row=q.map((_,j)=>{const cl=44+cp*(j%L),ly=yy+((j/L)|0)*b;return[[cl+13,ly],[cl+13+dS,ly]]});o.p2.push(row);const ln=Math.ceil(q.length/L);last=yy+(ln-1)*b;yy+=ln*b})}
   o.H=H;o.over=Math.max(0,last+2.6-(H-16));if(!o.over)break}
  return o}
@@ -136,8 +147,8 @@ const cell=(lb,cl,v,at)=>`<label class="cell"><span class="no ${cl}">${lb}</span
 function buildKey(){const n1=K.a1.length;
  $('#kui').innerHTML=`<div class="hd"><h2>Phần I · Trắc nghiệm</h2>${stp('c1',n1,'câu')}</div><label class="pt">Điểm mỗi câu <input class="pt" id="pt1" value="${f2(K.pt1)}" inputmode="decimal"></label><div id="k1">`
  +K.a1.map((v,i)=>cell('Câu '+(i+1),'w',v,`data-a="${i}"`)).join('')+`</div><div class="hd"><h2>Phần II · Đúng/Sai</h2>${stp('c2',K.q2.length,'câu')}</div><label class="pt">Điểm mỗi ý <input class="pt" id="pt2" value="${f2(K.pt2)}" inputmode="decimal"></label>`
- +K.q2.map((q,qi)=>`<div class="tfq"><b class="tfn">Câu ${n1+qi+1}</b><div class="cells">${q.map((v,j)=>cell('abcdefgh'[j],'s',v,`data-q="${qi}" data-a="${j}"`)).join('')}</div>${stp('y'+qi,q.length,'ý')}</div>`).join('');hint()}
-function pnote(){$('#pnote').textContent=LAY.over>0?'Quá nhiều câu cho cả một tờ A4: hãy bớt câu hoặc ý.':HH>148?'⚠️ Số câu vượt nửa trang A4 nên phiếu đã tự xếp gọn trên 1 tờ A4 đầy đủ (mỗi tờ 1 phiếu). Chọn khổ A4, tỉ lệ 100%, không chọn “vừa trang”.':'Phiếu chiếm nửa trang A4: mỗi tờ A4 ra 2 phiếu, cắt đôi theo nét đứt. Chọn khổ A4, tỉ lệ 100%, không chọn “vừa trang”.'}
+ +K.q2.map((q,qi)=>`<div class="tfq"><div class="hd2"><b class="tfn">Câu ${n1+qi+1}</b>${stp('y'+qi,q.length,'ý')}</div><div class="cells">${q.map((v,j)=>cell('abcdefgh'[j],'s',v,`data-q="${qi}" data-a="${j}"`)).join('')}</div></div>`).join('');hint()}
+function pnote(){const e=$('#pnote');e.textContent=LAY.over>0?'Quá nhiều câu cho cả một tờ A4: hãy bớt câu hoặc ý.':HH>148?'⚠️ Số câu vượt nửa trang A4 nên phiếu đã tự xếp gọn trên 1 tờ A4 đầy đủ (mỗi tờ 1 phiếu). Chọn khổ A4, tỉ lệ 100%, không chọn “vừa trang”.':'';e.style.display=e.textContent?'block':'none'}
 function relayout(){LAY=layout();renderSheet();hint();pnote()}
 $('#key').oninput=e=>{const el=e.target;
  if(el.id==='pt1'||el.id==='pt2'){const v=parseFloat(el.value.replace(',','.'));if(v>0){K[el.id]=v;save();hint()}return}
@@ -176,14 +187,63 @@ function guideOn(){setSample(1);vPlace(-vph.offsetWidth-30,18,false);vLock=false
 function guideOff(){clearInterval(vT);stopVoice()}
 $('#vb1').onclick=()=>{$('#vsc').innerHTML='';vSend(1)};$('#vb2').onclick=()=>{$('#vsc').innerHTML='';vSend(2)};
 $('#vVoice').onclick=()=>$('#bVoice').click();$('#vmc').onclick=()=>{MCN=0;try{localStorage.setItem('omr9m','0')}catch(e){}vst('Đã bật lại MC hướng dẫn (cần bật Giọng nói).')};
+function buildDocx(D,png,c){
+ const {Document,Paragraph,TextRun,Table,TableRow,TableCell,WidthType,BorderStyle,ShadingType,ImageRun,AlignmentType,Footer,PageNumber,TabStopType,LeaderType,Tab,VerticalAlign}=D;
+ const W=9638,F='Times New Roman',RED='C62828',GR='595959',n1=c.n1,y=c.y,n2=y.length,nY=y.reduce((a,b)=>a+b,0),s1=n1*c.pt1,tot=s1+nY*c.pt2,tl=10-tot,full=c.HH>148;
+ const ln=(k='000000',s=6)=>({style:BorderStyle.SINGLE,size:s,color:k}),nb={style:BorderStyle.NONE,size:0,color:'FFFFFF'},noB={top:nb,bottom:nb,left:nb,right:nb},box=(k,s)=>({top:ln(k,s),bottom:ln(k,s),left:ln(k,s),right:ln(k,s)});
+ const R=(t,o={})=>new TextRun({text:t,font:F,size:26,...o}),P=(ch,o={})=>new Paragraph({spacing:{after:60,line:300},...o,children:ch}),dots=n=>'…'.repeat(n);
+ const cell=(ch,w,o={})=>new TableCell({width:{size:w,type:WidthType.DXA},borders:noB,children:ch,...o});
+ const head=new Table({width:{size:W,type:WidthType.DXA},columnWidths:[4700,4938],rows:[new TableRow({children:[
+  cell([P([R('TRƯỜNG '+dots(12),{bold:true})]),P([R('Họ và tên: '+dots(10))]),P([R('Lớp: '+dots(9))]),new Paragraph({spacing:{before:80,after:40},children:[R(' ĐỀ CHÍNH THỨC ',{bold:true,size:24})],border:box('000000',8),shading:{type:ShadingType.CLEAR,fill:'FFF2A8',color:'auto'},indent:{right:1800}})],4700),
+  cell([P([R('ĐỀ KIỂM TRA ĐÁNH GIÁ',{bold:true})]),P([R(dots(17),{bold:true})]),P([R('Năm học: '+dots(12))]),P([R('Môn: '+dots(14))]),P([R('Thời gian: '+dots(4)+' phút (không kể thời gian phát đề)',{italics:true})])],4938)]})]});
+ const sc=(t,w,o={})=>new TableCell({width:{size:w,type:WidthType.DXA},borders:box('000000',6),verticalAlign:VerticalAlign.CENTER,...o,children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:40,after:40},children:Array.isArray(t)?t:[R(t,{bold:true,size:24})]})]});
+ const sg=t=>[R(t,{bold:true,size:24}),new TextRun({text:'(Ký, ghi rõ họ tên)',font:F,size:20,italics:true,break:1})],cw=[1500,1500,1500,2569,2569];
+ const score=new Table({width:{size:W,type:WidthType.DXA},columnWidths:cw,rows:[new TableRow({children:[sc('Điểm',4500,{columnSpan:3}),sc(sg('Giám khảo'),2569,{rowSpan:2}),sc(sg('Giám thị'),2569,{rowSpan:2})]}),new TableRow({children:[sc('Trắc nghiệm',1500),sc('Tự luận',1500),sc('Tổng điểm',1500)]}),new TableRow({height:{value:1000,rule:'atLeast'},children:cw.map(w=>sc([R('')],w))})]});
+ const H=(t,s)=>new Paragraph({spacing:{before:200,after:60},keepNext:true,children:[R(t,{bold:true}),R(s,{bold:true})]}),SH=(t,s)=>new Paragraph({spacing:{before:100,after:40},keepNext:true,children:[R(t,{bold:true}),R(s,{bold:true})]});
+ const note=t=>P([R(t,{italics:true,size:24})]),sample=t=>P([R(t,{color:'7F7F7F'})],{indent:{left:284}}),f=c.f2;
+ const body=[];let ri=0;const rom=['I','II'];
+ if(n1+n2>0){body.push(H('PHẦN A. TRẮC NGHIỆM ','('+f(tot)+' điểm)'));
+  if(n1>0)body.push(SH(rom[ri++]+'. Chọn đáp án đúng nhất ','(Câu 1'+(n1>1?' – Câu '+n1:'')+'; mỗi câu '+f(c.pt1)+' điểm)'),note('Học sinh chọn một đáp án đúng nhất cho mỗi câu, rồi tô kín ô tròn (A, B, C hoặc D) tương ứng vào phiếu trả lời ở phần BÀI LÀM.'),sample('Câu 1. [Mẫu — xóa] Nội dung câu hỏi '+dots(14)+'?'),sample('A. ………………  B. ………………  C. ………………  D. ………………'));
+  if(n2>0){const a=n1+1,b=n1+n2,m=Math.max(...y),ls='abcdefgh'.slice(0,m).split('').map(x=>x+')'),sm='abcdefgh'.slice(0,y[0]).split('').map(x=>x+') ………………');
+   body.push(SH(rom[ri++]+'. Đúng hoặc Sai ','(Câu '+a+(b>a?' – Câu '+b:'')+'; mỗi ý '+f(c.pt2)+' điểm)'),note('Trong mỗi câu, học sinh xét từng ý '+ls.join(', ')+' là đúng hay sai, rồi tô kín ô Đ (đúng) hoặc ô S (sai) tương ứng vào phiếu trả lời ở phần BÀI LÀM.'),sample('Câu '+a+'. [Mẫu — xóa] Nội dung câu hỏi Đúng/Sai '+dots(10)+':'),sample(sm.slice(0,4).join('  ')),...(sm.length>4?[sample(sm.slice(4).join('  '))]:[]))}}
+ body.push(H('PHẦN B. TỰ LUẬN ',tl>0.001?'('+f(tl)+' điểm)':'(…… điểm)'),sample('Câu '+(n1+n2+1)+' (…… điểm). [Mẫu — xóa] Nội dung câu hỏi tự luận '+dots(12)),sample('Câu '+(n1+n2+2)+' (…… điểm). [Mẫu — xóa] Nội dung câu hỏi tự luận '+dots(12)));
+ const rb=new Table({width:{size:W,type:WidthType.DXA},columnWidths:[W],rows:[new TableRow({children:[new TableCell({width:{size:W,type:WidthType.DXA},borders:box(RED,12),shading:{type:ShadingType.CLEAR,fill:'FDECEA',color:'auto'},margins:{top:60,bottom:60,left:140,right:140},children:[
+  new Paragraph({spacing:{after:30},children:[new TextRun({text:'LƯU Ý — XÓA KHUNG ĐỎ NÀY VÀ CÁC DÒNG CHỮ XÁM “MẪU” TRƯỚC KHI IN:',font:F,size:20,bold:true,color:RED})]}),
+  new Paragraph({children:[new TextRun({text:'• Không chỉnh sửa, không kéo giãn, không gõ đè lên phiếu ở trang 2 (chỉ đổi cỡ bằng cách kéo ở góc, giữ tỉ lệ). • Khổ A4, lề trái/phải 2 cm. • In khổ A4, tỉ lệ 100%, KHÔNG chọn “Fit to page”. • Nếu đổi số câu/ý: tải lại file mẫu từ app để phiếu và tiêu đề khớp với cấu trúc mới.',font:F,size:20,color:RED})]})]})]})]});
+ const pencil=new Table({width:{size:W,type:WidthType.DXA},columnWidths:[W],rows:[new TableRow({children:[new TableCell({width:{size:W,type:WidthType.DXA},borders:box(RED,24),shading:{type:ShadingType.CLEAR,fill:'FFF2A8',color:'auto'},margins:{top:80,bottom:80,left:140,right:140},children:[
+  new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:30},children:[R('CHỈ ĐƯỢC TÔ BẰNG BÚT CHÌ ĐEN (2B)',{bold:true,size:30,color:RED})]}),
+  new Paragraph({alignment:AlignmentType.CENTER,children:[R('Tô thật kín và thật đậm bên trong ô tròn. Muốn đổi đáp án: dùng cục tẩy xóa sạch rồi tô lại. KHÔNG dùng bút bi, bút mực, bút xóa.',{bold:true,size:22})]})]})]})]});
+ const wpx=full?586:642,img=new Paragraph({alignment:AlignmentType.CENTER,keepNext:true,spacing:{before:100},children:[new ImageRun({type:'png',data:png,transformation:{width:wpx,height:Math.round(wpx*c.HH/210)},altText:{title:'Phiếu trả lời trắc nghiệm',description:'Phiếu trả lời trắc nghiệm',name:'phieu'}})]});
+ const lines=n=>Array.from({length:n},()=>new Paragraph({tabStops:[{type:TabStopType.RIGHT,position:W,leader:LeaderType.DOT}],spacing:{line:397,lineRule:'exact',after:0},children:[new TextRun({children:[new Tab()],font:F,size:26})]}));
+ const ctr=(t,o={})=>new Paragraph({alignment:AlignmentType.CENTER,keepNext:true,spacing:{before:100,after:40},children:[R(t,{bold:true,...o})]}),hetp=new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:80},children:[R('— HẾT —',{bold:true})]});
+ const ft=new Footer({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({children:['Trang ',PageNumber.CURRENT,' / ',PageNumber.TOTAL_PAGES],font:F,size:20,color:GR})]})]});
+ const sec={properties:{page:{size:{width:11906,height:16838},margin:{top:850,bottom:900,left:1134,right:1134,footer:400}}},footers:{default:ft}};
+ const s2=[new Paragraph({alignment:AlignmentType.RIGHT,spacing:{after:40},children:[R('Họ và tên: '+dots(24)+'   Lớp: '+dots(8),{size:22})]}),ctr('BÀI LÀM',{underline:{}}),pencil,img];
+ if(!full)s2.push(ctr('Phần B. Tự luận',{underline:{}}),...lines(8));
+ const secs=[{...sec,children:[head,P([R('')]),score,...body,new Paragraph({spacing:{before:120},children:[]}),rb]},{...sec,children:s2}];
+ if(full)secs.push({...sec,children:[ctr('Phần B. Tự luận',{underline:{}}),...lines(33)]},{...sec,children:[...lines(35),hetp]});else secs.push({...sec,children:[...lines(35),hetp]});
+ return new Document({styles:{default:{document:{run:{font:F,size:26}}}},sections:secs});
+}
+
 /* ---- Tabs ---- */
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{if(!$('#key').hidden&&b.dataset.t!=='key')warnAnswers();
  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
  ['guide','key','scan','sheet'].forEach(id=>$('#'+id).hidden=id!==b.dataset.t);
  if(b.dataset.t!=='scan')stopCam();b.dataset.t==='guide'?guideOn():guideOff();
 });
 $('#bPrint').onclick=()=>window.print();
-$('#bPng').onclick=()=>{const W=2480,Hh=Math.round(W*HH/210),im=new Image();im.onload=()=>{try{const c=document.createElement('canvas');c.width=W;c.height=Hh;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,Hh);x.drawImage(im,0,0,W,Hh);c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='phieu-tra-loi.png';a.click()})}catch(e){alert('Không tải được ảnh. Hãy mở trang bằng trình duyệt thường (Chrome, Safari).')}};im.onerror=()=>alert('Không tạo được ảnh.');im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(sheetSVG())};
+function phieuBlob(){return new Promise((ok,no)=>{const W=2480,Hh=Math.round(W*HH/210),im=new Image();im.onload=()=>{try{const c=document.createElement('canvas');c.width=W;c.height=Hh;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,Hh);x.drawImage(im,0,0,W,Hh);c.toBlob(b=>b?ok(b):no(),'image/png')}catch(e){no(e)}};im.onerror=no;im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(sheetSVG())})}
+const dl=(b,n)=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000)};
+$('#bPng').onclick=async()=>{try{dl(await phieuBlob(),'phieu-tra-loi.png')}catch(e){alert('Không tải được ảnh. Hãy mở trang bằng trình duyệt thường (Chrome, Safari).')}};
+$('#bDoc').onclick=async()=>{const b=$('#bDoc');b.disabled=true;try{if(!window.docx)await new Promise((ok,no)=>{const t=document.createElement('script');t.src='https://cdn.jsdelivr.net/npm/docx@9.0.3/build/index.umd.js';t.onload=ok;t.onerror=no;document.head.appendChild(t)});
+ const png=new Uint8Array(await (await phieuBlob()).arrayBuffer()),blob=await docx.Packer.toBlob(buildDocx(docx,png,{n1:K.a1.length,y:K.q2.map(q=>q.length),pt1:K.pt1,pt2:K.pt2,HH,f2}));dl(blob,'mau-de-kiem-tra.docx')}catch(e){alert('Không tạo được file Word. Hãy kiểm tra kết nối mạng rồi thử lại (cần mở trang bằng trình duyệt thường).')}b.disabled=false};
+function showModal(h,t){$('#mh').textContent=h;$('#mtxt').innerHTML=t;$('#modal').hidden=false;$('#mok').focus()}
+const closeModal=()=>{$('#modal').hidden=true};
+$('#modal').onclick=e=>{if(e.target.id==='modal'||e.target.id==='mok'||e.target.closest('.mx'))closeModal()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+function warnAnswers(){const n1=K.a1.length,miss=[];K.a1.forEach((v,i)=>{if(!v)miss.push('Câu '+(i+1))});K.q2.forEach((q,qi)=>q.forEach((v,j)=>{if(!v)miss.push('Câu '+(n1+qi+1)+' ý '+'abcdefgh'[j])}));
+ const tot=n1+nY();if(!miss.length||miss.length===tot)return;
+ showModal('⚠ Chưa điền đủ đáp án','Bạn mới điền <b>'+(tot-miss.length)+'/'+tot+'</b> đáp án.<br>Còn thiếu: '+miss.slice(0,8).join(', ')+(miss.length>8?' …':'')+'<br><b>Ô thiếu sẽ bị tính là sai.</b> Hãy quay lại tab Đáp án để điền nốt.')}
 /* ---- Xử lý ảnh ---- */
 function otsu(g){const h=new Array(256).fill(0);for(let i=0;i<g.length;i++)h[g[i]]++;let sum=0;for(let i=0;i<256;i++)sum+=i*h[i];let sb=0,wb=0,mx=0,th=100;for(let i=0;i<256;i++){wb+=h[i];if(!wb)continue;const wf=g.length-wb;if(!wf)break;sb+=i*h[i];const mb=sb/wb,mf=(sum-sb)/wf,v=wb*wf*(mb-mf)*(mb-mf);if(v>mx){mx=v;th=i}}return th}
 function blobs(g,w,h,th){const seen=new Uint8Array(w*h),st=new Int32Array(w*h),out=[],minA=w*h*0.0002;
