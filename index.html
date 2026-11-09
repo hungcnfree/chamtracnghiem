@@ -59,11 +59,6 @@ input.k{width:100%;min-width:0;text-align:center;font-weight:800;font-size:20px;
 .pt{display:block;margin:2px 0 8px;font-size:14px}input.pt{width:64px;display:inline-block;text-align:center;padding:4px;border:2px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);font:inherit;letter-spacing:0}
 .tfq{flex-wrap:wrap;align-items:flex-start}.cells{display:flex;gap:6px;flex:1;min-width:0;flex-wrap:wrap}.cells .cell{flex:0 0 52px}
 .tabs button{padding:9px 2px;font-size:14px}.ft{margin:22px 0 6px;text-align:center;font-size:13px;color:var(--mu)}
-#vwin{position:relative;width:100%;max-width:380px;height:250px;margin:8px auto;background:#2b2f36;border:6px solid #111;border-radius:22px;overflow:hidden;touch-action:none}
-#vph{position:absolute;left:0;top:0;width:270px;cursor:grab;touch-action:none;box-shadow:0 4px 12px #0009}#vph svg{display:block;width:100%;height:auto;pointer-events:none}
-#vq{position:absolute;display:none;border:3px solid #ffd400;pointer-events:none;border-radius:4px}
-#vsc{text-align:center;margin:8px 0;min-height:60px}.vbig{font-family:"Patrick Hand","Segoe Print",cursive;font-size:56px;line-height:1;color:var(--er)}
-ol.gl{padding-left:20px;margin:6px 0}ol.gl li{margin:6px 0}
 .acts{display:flex;flex-direction:column;gap:12px;margin:10px 0 14px}
 .act{display:flex;align-items:center;justify-content:center;gap:12px;font-size:17px;font-weight:800;padding:13px 14px;border:3px solid #413333;border-radius:18px;box-shadow:0 5px 0 #413333;cursor:pointer}
 .act:active{transform:translateY(3px);box-shadow:0 2px 0 #413333}.act:disabled{opacity:.6}.a1{background:#FFD166;color:#413333}.a2{background:#0B7A75;color:#fff}.a3{background:#2B579A;color:#fff}
@@ -73,15 +68,22 @@ ol.gl{padding-left:20px;margin:6px 0}ol.gl li{margin:6px 0}
 .mbox{position:relative;background:var(--card);border:3px solid var(--hl);border-radius:20px;padding:24px 18px 18px;max-width:360px;width:100%;box-shadow:6px 6px 0 var(--ac);text-align:center}
 .mbox h3{font-family:"Patrick Hand","Segoe Print",cursive;font-size:28px;margin:0 0 8px;color:var(--er)}.mx{position:absolute;right:8px;top:8px;width:38px;height:38px;border-radius:50%;padding:0;font-size:18px}
 #mok{margin-top:12px;font-size:26px;font-weight:800;padding:10px 52px;background:var(--ac);color:var(--acx);border:3px solid var(--tx);border-radius:14px;box-shadow:0 4px 0 var(--tx)}
+.flow{font-family:"Patrick Hand","Segoe Print",cursive;font-size:20px;color:var(--ac);margin:0 0 10px;text-align:center}
+.step{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:2px dashed var(--bd)}.step:first-of-type{border-top:0}
+.sn{flex:none;width:46px;height:46px;border-radius:50%;background:var(--er);color:#fff;font-family:"Patrick Hand","Segoe Print",cursive;font-size:30px;display:grid;place-items:center;transform:rotate(-6deg)}
+.step h3{margin:0 0 3px;font-size:18px}.step p{margin:0;font-size:15px}.go{margin-top:8px;font-size:14px;padding:6px 14px;border-radius:999px;border:2px solid var(--ac);color:var(--ac);background:var(--card);font-weight:700}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"></head><body><div class="wrap">
 <h1>✏️ Chấm trắc nghiệm</h1>
 <div class="tabs"><button data-t="guide">❓ Hướng dẫn</button><button data-t="key" class="on">1 Đáp án</button><button data-t="sheet">2 Phiếu in</button><button data-t="scan">3 Chấm</button></div>
 
-<section id="guide" hidden><div class="card"><h2 style="margin-top:0">Thử quét ảo (như thật)</h2>
-<p class="mu">Kéo tờ phiếu vào khung camera, hoặc bấm “Đưa phiếu vào”. Khi cả 4 ô vuông đen vào khung và phiếu đứng yên, máy “ting” rồi báo điểm. Sau mỗi lần chốt, máy nghỉ 10 giây mới nhận phiếu tiếp.</p>
-<div id="vwin"><div id="vph"></div><div id="vq"></div></div><div id="vst" class="mu" style="text-align:center"></div><div id="vsc"></div>
-<div class="row"><button id="vb1">Đưa phiếu 1 vào</button><button id="vb2">Đưa phiếu 2 vào</button><button id="vVoice">🔇 Giọng nói: tắt</button><button id="vmc">Bật lại MC hướng dẫn</button></div>
-<h2>4 bước dùng thật</h2><ol class="gl"><li><b>1 Đáp án:</b> gõ đáp án từng câu (bấm − / + để thêm bớt câu và ý).</li><li><b>2 Phiếu in:</b> in phiếu, dán vào cuối đề. Không kéo giãn, không gõ đè lên phiếu.</li><li><b>3 Chấm:</b> mở camera, đặt phiếu phẳng trên bàn tối màu, đưa 4 ô vuông đen vào khung.</li><li>Ghi điểm lên phiếu, đưa phiếu tiếp theo. Bật “Giọng nói” (nên dùng tai nghe) nếu muốn nghe báo điểm.</li></ol></div></section>
+<section id="guide" hidden><div class="card"><h2 style="margin-top:0">Quy trình 5 bước</h2>
+<p class="flow">Đáp án → Phiếu in → Làm bài → Quét chấm → Ghi điểm</p>
+<div class="step"><div class="sn">1</div><div><h3>Nhập đáp án, chỉnh cấu trúc đề</h3><p>Gõ đáp án từng câu. Bấm − / + để thêm bớt câu và ý cho đúng đề của bạn. Kiểm tra “Điểm tối đa” ở cuối tab.</p><button class="go" data-go="key">Đến tab 1 Đáp án</button></div></div>
+<div class="step"><div class="sn">2</div><div><h3>Tải đề mẫu Word, in phiếu</h3><p>Tải đề mẫu Word đã có sẵn phiếu, dán câu hỏi của bạn vào, xóa các dòng “Mẫu” rồi in. Không chỉnh sửa hay kéo giãn phiếu.</p><button class="go" data-go="sheet">Đến tab 2 Phiếu in</button></div></div>
+<div class="step"><div class="sn">3</div><div><h3>Học sinh làm bài</h3><p>Chỉ tô bằng <b>bút chì đen 2B</b>, tô thật kín và đậm. Muốn đổi đáp án thì tẩy sạch rồi tô lại.</p></div></div>
+<div class="step"><div class="sn">4</div><div><h3>Quét chấm bằng camera</h3><p>Đặt phiếu phẳng trên mặt bàn tối màu, đủ sáng. Đưa 4 ô vuông đen vào khung, giữ yên. Nghe tiếng “ting” là đã chấm xong, điểm hiện ngay.</p><button class="go" data-go="scan">Đến tab 3 Chấm</button></div></div>
+<div class="step"><div class="sn">5</div><div><h3>Ghi điểm, quét phiếu tiếp</h3><p>Ghi điểm lên phiếu rồi đưa phiếu tiếp theo (máy nghỉ 10 giây giữa hai phiếu). Điểm tự luận chấm tay và cộng thêm. Nên đeo tai nghe nếu bật giọng nói.</p><button class="go" id="vmc">Bật lại MC hướng dẫn bằng giọng nói</button></div></div>
+</div></section>
 <section id="key" class="card"><p class="mu" style="margin:0 0 4px">Hãy nhập đáp án đúng và tùy chỉnh cấu trúc đề (thêm/bớt câu, thêm/bớt ý) cho phù hợp với đề của bạn.</p><div id="kui"></div><p id="hint" class="mu"></p></section>
 
 <section id="scan" hidden>
@@ -163,30 +165,9 @@ $('#key').onclick=e=>{const b=e.target.closest('button[data-s]');if(!b)return;co
  save();relayout();buildKey()};
 relayout();buildKey();
 let lock=false,same=0,lastSig='',coolUntil=0;
-/* ---- Thử quét ảo ---- */
-const vph=$('#vph'),vwin=$('#vwin'),vst=t=>$('#vst').textContent=t,dot=([x,y])=>`<circle cx="${x+Math.sin(x*9)*.15}" cy="${y+Math.cos(y*7)*.15}" r="2.2" fill="#23262b"/>`;
-let vO=null,vLock=false,vCool=0,vSteady=0,vOut=0,vT=null,vPrev=[0,0],vDrag=null;
-function setSample(n){vph.style.width=Math.min(270,215*210/HH)+'px';const n1=K.a1.length,w1=n===1&&n1>2?2:-1,w2=n===1&&LAY.p2.length&&LAY.p2[0].length>1?1:-1;let ex='',lost=0;
- LAY.p1.forEach((r,i)=>{let k='ABCD'.indexOf(K.a1[i]||'A');if(k<0)k=0;if(i===w1){k=(k+1)%4;lost+=K.pt1}ex+=dot(r[k])});
- LAY.p2.forEach((q,qi)=>q.forEach((c,j)=>{let k='ĐS'.indexOf(K.q2[qi][j]||'Đ');if(k<0)k=0;if(qi===0&&j===w2){k=1-k;lost+=K.pt2}ex+=dot(c[k])}));
- vO={score:maxPts()-lost,B:[...(w1>=0?[{n:3}]:[]),...(w2>=0?[{n:n1+1,y:1}]:[])]};vph.innerHTML=sheetSVG().replace('</svg>',ex+'</svg>')}
-function vPlace(x,y,an){vph.style.transition=an?'transform .9s ease':'none';vph.style.transform=`translate(${x}px,${y}px)`}
-function vSend(n){setSample(n);vPlace(-vph.offsetWidth-30,18,false);vph.getBoundingClientRect();setTimeout(()=>vPlace((vwin.clientWidth-vph.offsetWidth)/2,(vwin.clientHeight-vph.offsetHeight)/2,true),60)}
-vph.onpointerdown=e=>{const m=new DOMMatrix(getComputedStyle(vph).transform);vph.style.transition='none';vDrag={x:e.clientX-m.m41,y:e.clientY-m.m42};vph.setPointerCapture(e.pointerId)};
-vph.onpointermove=e=>{if(vDrag)vPlace(e.clientX-vDrag.x,e.clientY-vDrag.y,false)};vph.onpointerup=()=>vDrag=null;
-function vTick(){const a=vwin.getBoundingClientRect(),b=vph.getBoundingClientRect(),m=2,in_=b.left>=a.left+m&&b.right<=a.right-m&&b.top>=a.top+m&&b.bottom<=a.bottom-m,q=$('#vq');
- q.style.cssText=in_?`display:block;left:${b.left-a.left}px;top:${b.top-a.top}px;width:${b.width}px;height:${b.height}px;border-color:${vLock?'#4cc38a':'#ffd400'}`:'display:none';
- if(!in_){if(++vOut>6){if(vLock)vst('Đặt phiếu mới vào khung.');vLock=false;vSteady=0}else if(!vLock)vst('Chưa thấy đủ 4 góc.');return}
- vOut=0;if(vLock)return;
- if(Date.now()<vCool){vst('Nghỉ nhịp: đợi '+Math.ceil((vCool-Date.now())/1000)+' giây rồi quét phiếu tiếp.');vSteady=0;return}
- vst('Đang đọc… giữ yên phiếu.');const mv=Math.abs(b.left-vPrev[0])+Math.abs(b.top-vPrev[1]);vPrev=[b.left,b.top];
- if(mv>1){vSteady=0;return}
- if(++vSteady>=8){vLock=true;vCool=Date.now()+10000;stopVoice();beep();vst('Đã chấm xong. Ghi điểm lên phiếu, rồi đưa phiếu tiếp theo.');
-  $('#vsc').innerHTML=`<div class="vbig">${f2(vO.score)}</div><div class="sub">trên ${f2(maxPts())} điểm</div>`;announce(vO.score,vO.B,[])}}
-function guideOn(){setSample(1);vPlace(-vph.offsetWidth-30,18,false);vLock=false;vCool=0;$('#vsc').innerHTML='';clearInterval(vT);vT=setInterval(vTick,100)}
-function guideOff(){clearInterval(vT);stopVoice()}
-$('#vb1').onclick=()=>{$('#vsc').innerHTML='';vSend(1)};$('#vb2').onclick=()=>{$('#vsc').innerHTML='';vSend(2)};
-$('#vVoice').onclick=()=>$('#bVoice').click();$('#vmc').onclick=()=>{MCN=0;try{localStorage.setItem('omr9m','0')}catch(e){}vst('Đã bật lại MC hướng dẫn (cần bật Giọng nói).')};
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>document.querySelector('.tabs button[data-t="'+b.dataset.go+'"]').click());
+$('#vmc').onclick=()=>{MCN=0;try{localStorage.setItem('omr9m','0')}catch(e){}b_msg('Đã bật lại MC hướng dẫn (cần bật Giọng nói ở tab Chấm).')};
+const b_msg=t=>{$('#vmc').textContent=t};
 function buildDocx(D,png,c){
  const {Document,Paragraph,TextRun,Table,TableRow,TableCell,WidthType,BorderStyle,ShadingType,ImageRun,AlignmentType,Footer,PageNumber,TabStopType,LeaderType,Tab,VerticalAlign}=D;
  const W=9638,F='Times New Roman',RED='C62828',GR='595959',n1=c.n1,y=c.y,n2=y.length,nY=y.reduce((a,b)=>a+b,0),s1=n1*c.pt1,tot=s1+nY*c.pt2,tl=10-tot,full=c.HH>148;
@@ -229,7 +210,7 @@ function buildDocx(D,png,c){
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{if(!$('#key').hidden&&b.dataset.t!=='key')warnAnswers();
  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
  ['guide','key','scan','sheet'].forEach(id=>$('#'+id).hidden=id!==b.dataset.t);
- if(b.dataset.t!=='scan')stopCam();b.dataset.t==='guide'?guideOn():guideOff();
+ if(b.dataset.t!=='scan')stopCam();
 });
 $('#bPrint').onclick=()=>window.print();
 function phieuBlob(){return new Promise((ok,no)=>{const W=2480,Hh=Math.round(W*HH/210),im=new Image();im.onload=()=>{try{const c=document.createElement('canvas');c.width=W;c.height=Hh;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,Hh);x.drawImage(im,0,0,W,Hh);c.toBlob(b=>b?ok(b):no(),'image/png')}catch(e){no(e)}};im.onerror=no;im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(sheetSVG())})}
@@ -304,7 +285,7 @@ function announce(t,B,W){if(!VOICE)return;const mx=maxPts(),sc=scoreSeq(t),q=[];
   if(W.length){q.push(.5,'can_kiem_tra',.15);W.slice(0,4).forEach((i,x)=>{if(x)q.push(.28);q.push(...item(i),.1,i.k)})}}
  if(MCN<3)q.push(.7,'mc_xong');
  setTimeout(()=>say(q),600)}
-function vbtn(){const t=VOICE?'🔊 Giọng nói: bật':'🔇 Giọng nói: tắt';$('#bVoice').textContent=t;$('#vVoice').textContent=t}
+function vbtn(){const t=VOICE?'🔊 Giọng nói: bật':'🔇 Giọng nói: tắt';$('#bVoice').textContent=t}
 $('#bVoice').onclick=()=>{VOICE=!VOICE;try{localStorage.setItem('omr9v',VOICE?'1':'0')}catch(e){}vbtn();if(VOICE){ensureAC();say(['diem_bai'])}};
 vbtn();
 function grade(R){const k=K,n1=k.a1.length;let c1=0,c2=0;const warn=[],bad=[],B=[],W=[];
